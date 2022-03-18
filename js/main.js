@@ -115,30 +115,198 @@ function tinhTienchiTiet(so_Km, thoi_Gian, gia_Cho, gia_Km_1, gia_Km_2, gia_Km_3
 }
 
 document.getElementById("btnInhoaDon").onclick = function () {
-    var content = "";
+    var content1 = "";
     var so_Km = +document.getElementById("so_Km").value;
     var thoi_Gian = +document.getElementById("thoi_Gian").value;
-    if(0 < so_Km && so_Km <=1)
-    {
-        content += "<tr>";
-        content +=      "<td>KM ĐẦU TIÊN</td>";
-        content +=      "<td>"+ so_Km +"</td>";
-        content +=      "<td>"+ GRABX_1 +"</td>";
-        content +=      "<td>"+ tienKm_1 +"</td>";
-        content += "</tr>";
+    var loaiXe = layLoaixe();
 
-        content += "<tr>";
-        content +=      "<td>Thời gian chờ</td>";
-        content +=      "<td>"+ thoi_Gian +"</td>";
-        content +=      "<td>"+ GRABX_WAIT +"</td>";
-        content +=      "<td>"+ tienCho +"</td>";
-        content += "</tr>";
+    switch (loaiXe) {
+        case "grabX":
+            if(0 < so_Km && so_Km <=1)
+            {
+                var inKKQQ = inHoadonTheomau01(thoi_Gian, GRABX_WAIT, tienCho, so_Km, GRABX_1, tongTien);
+            }
+            else if(1 < so_Km && so_Km <= 19)
+            {
+                var inKKQQ = inHoadonTheomau02(thoi_Gian, GRABX_WAIT, tienCho, so_Km, GRABX_1, GRABX_2, tongTien);
+            }
+            else if(so_Km > 19)
+            {
+                var inKKQQ = inHoadonTheomau03(thoi_Gian, GRABX_WAIT, tienCho, so_Km,GRABX_1, GRABX_2, GRABX_3, tongTien);
+            }
+            document.getElementById("tbody").innerHTML = inKKQQ;
+            break;
 
-        content += "<tr>";
-        content +=      "<td>Tong tien</td>";
-        content +=      "<td>"+ tongTien +"</td>";
-        content += "</tr>";
-    }
-    document.getElementById("tbody").innerHTML = content;
+        case "grabSUV":
+            if(0 < so_Km && so_Km <=1)
+            {
+                var inKKQQ = inHoadonTheomau01(thoi_Gian, GRAB_SUV_WAIT, tienCho, so_Km, GRAB_SUV_1, tongTien);
+            }
+            else if(1 < so_Km && so_Km <= 19)
+            {
+                var inKKQQ = inHoadonTheomau02(thoi_Gian, GRAB_SUV_WAIT, tienCho, so_Km,GRAB_SUV_1, GRAB_SUV_2, tongTien);
+            }
+            else if(so_Km > 19)
+            {
+                var inKKQQ = inHoadonTheomau03(thoi_Gian, GRAB_SUV_WAIT, tienCho, so_Km, GRAB_SUV_1, GRAB_SUV_2, GRAB_SUV_3, tongTien);
+            }
+            document.getElementById("tbody").innerHTML = inKKQQ;
+            break;
+
+        case "grabBLACK":
+            if(0 < so_Km && so_Km <=1)
+            {
+                var inKKQQ = inHoadonTheomau01(thoi_Gian, GRAB_BLACK_WAIT, tienCho, so_Km, GRAB_BLACK_1, tongTien);
+            }
+            else if(1 < so_Km && so_Km <= 19)
+            {
+                var inKKQQ = inHoadonTheomau02(thoi_Gian, GRAB_BLACK_WAIT, tienCho, so_Km, GRAB_BLACK_1, GRAB_BLACK_2, tongTien);
+            }
+            else if(so_Km > 19)
+            {
+                var inKKQQ = inHoadonTheomau03(thoi_Gian, GRAB_BLACK_WAIT, tienCho, so_Km, GRAB_BLACK_1, GRAB_BLACK_2, GRAB_BLACK_3, tongTien);
+            }
+            document.getElementById("tbody").innerHTML = inKKQQ;
+            break;
+        default:
+            alert("Vui lòng chọn loại xe");
+            break;
+    }    
 }
 
+function inHoadonTheomau(thoi_Gian, giaTgcho, tienCho, so_Km, giaKm, tienKm, tongTien) {
+        var content1 = "";
+
+        content1 += "<tr>";
+        content1 +=      "<td>KM ĐẦU TIÊN</td>";
+        content1 +=      "<td>"+ so_Km +"</td>";
+        content1 +=      "<td>"+ giaKm +"</td>";
+        content1 +=      "<td>"+ tienKm +"</td>";
+        content1 += "</tr>";
+
+        content1 += "<tr>";
+        content1 +=      "<td>KM ĐẦU TIÊN</td>";
+        content1 +=      "<td>"+ so_Km +"</td>";
+        content1 +=      "<td>"+ giaKm +"</td>";
+        content1 +=      "<td>"+ tienKm +"</td>";
+        content1 += "</tr>";
+
+        content1 += "<tr>";
+        content1 +=      "<td>Thời gian chờ</td>";
+        content1 +=      "<td>"+ thoi_Gian +"</td>";
+        content1 +=      "<td>"+ giaTgcho +"</td>";
+        content1 +=      "<td>"+ tienCho +"</td>";
+        content1 += "</tr>";
+
+        content1 += "<tr>";
+        content1 +=      "<td>Tong tien</td>";
+        content1 +=      "<td>"+ tongTien +"</td>";
+        content1 += "</tr>";
+        return content1;
+}
+
+//  Chỗ này tách ra làm 03 form
+//  Form 0 - 1
+
+function inHoadonTheomau01(thoi_Gian, giaTgcho, tienCho, so_Km, giaKm, tongTien) {
+    var content1 = "";
+
+    content1 += "<tr>";
+    content1 +=      "<td>KM ĐẦU TIÊN</td>";
+    content1 +=      "<td>"+ so_Km +"</td>";
+    content1 +=      "<td>"+ giaKm +"</td>";
+    content1 +=      "<td>"+ so_Km*giaKm +"</td>";
+    content1 += "</tr>";
+
+    content1 += "<tr>";
+    content1 +=      "<td>Thời gian chờ</td>";
+    content1 +=      "<td>"+ thoi_Gian +"</td>";
+    content1 +=      "<td>"+ giaTgcho +"</td>";
+    content1 +=      "<td>"+ tienCho +"</td>";
+    content1 += "</tr>";
+
+    content1 += "<tr>";
+    content1 +=      "<td>Tổng tiền</td>";
+    content1 +=      "<td>"+ tongTien +"</td>";
+    content1 += "</tr>";
+    return content1;
+}
+
+//  Form 01 - Done
+
+//  Form 02:
+
+function inHoadonTheomau02(thoi_Gian, giaTgcho, tienCho, so_Km, giaKm, giaKm2, tongTien) {
+    var content1 = "";
+
+    content1 += "<tr>";
+    content1 +=      "<td>KM ĐẦU TIÊN</td>";
+    content1 +=      "<td>"+ "1" +"</td>";
+    content1 +=      "<td>"+ giaKm +"</td>";
+    content1 +=      "<td>"+ giaKm*1 +"</td>";
+    content1 += "</tr>";
+
+    content1 += "<tr>";
+    content1 +=      "<td>KM từ 1 đến "+ so_Km +"</td>";
+    content1 +=      "<td>"+ (so_Km - 1) +"</td>";
+    content1 +=      "<td>"+ giaKm2 +"</td>";
+    content1 +=      "<td>"+ giaKm2*(so_Km - 1) +"</td>";
+    content1 += "</tr>";
+
+    content1 += "<tr>";
+    content1 +=      "<td>Thời gian chờ</td>";
+    content1 +=      "<td>"+ thoi_Gian +"</td>";
+    content1 +=      "<td>"+ giaTgcho +"</td>";
+    content1 +=      "<td>"+ tienCho +"</td>";
+    content1 += "</tr>";
+
+    content1 += "<tr>";
+    content1 +=      "<td>Tổng tiền</td>";
+    content1 +=      "<td>"+ tongTien +"</td>";
+    content1 += "</tr>";
+    return content1;
+}
+
+//  Form 02 - Done
+
+
+//  Form 03:
+function inHoadonTheomau03(thoi_Gian, giaTgcho, tienCho, so_Km, giaKm, giaKm2, giaKm3, tongTien) {
+    var content1 = "";
+
+    content1 += "<tr>";
+    content1 +=      "<td>KM ĐẦU TIÊN</td>";
+    content1 +=      "<td>"+ "1" +"</td>";
+    content1 +=      "<td>"+ giaKm +"</td>";
+    content1 +=      "<td>"+ giaKm*1 +"</td>";
+    content1 += "</tr>";
+
+    content1 += "<tr>";
+    content1 +=      "<td>KM từ 1 đến 18</td>";
+    content1 +=      "<td> 18 </td>";
+    content1 +=      "<td>"+ giaKm2 +"</td>";
+    content1 +=      "<td>"+ giaKm2*18 +"</td>";
+    content1 += "</tr>";
+
+    content1 += "<tr>";
+    content1 +=      "<td>KM từ 19 đến " + so_Km +"</td>";
+    content1 +=      "<td>" + (so_Km - 19) + "</td>";
+    content1 +=      "<td>"+ giaKm3 +"</td>";
+    content1 +=      "<td>"+ giaKm3*(so_Km - 19) +"</td>";
+    content1 += "</tr>";
+
+    content1 += "<tr>";
+    content1 +=      "<td>Thời gian chờ</td>";
+    content1 +=      "<td>"+ thoi_Gian +"</td>";
+    content1 +=      "<td>"+ giaTgcho +"</td>";
+    content1 +=      "<td>"+ tienCho +"</td>";
+    content1 += "</tr>";
+
+    content1 += "<tr>";
+    content1 +=      "<td>Tổng tiền</td>";
+    content1 +=      "<td>"+ tongTien +"</td>";
+    content1 += "</tr>";
+    return content1;
+}
+
+//  Form 03: Done.
